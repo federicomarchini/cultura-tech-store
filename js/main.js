@@ -51,8 +51,8 @@ window.CT.reveal=function(){$$(".rv:not(.in)").forEach(function(el){io?io.observ
 /* init */
 document.addEventListener("DOMContentLoaded",function(){
  var h=$("header");function sc(){h.classList.toggle("scrolled",scrollY>20||!$(".hero"))}sc();addEventListener("scroll",sc,{passive:true});
- var bg=$(".burger"),mn=$(".menu");bg.onclick=function(){var o=mn.classList.toggle("open");bg.classList.toggle("open",o);bg.setAttribute("aria-expanded",o)};
- $$(".menu a").forEach(function(a){a.addEventListener("click",function(){mn.classList.remove("open");bg.classList.remove("open")})});
+ var bg=$(".burger"),mn=$(".menu");bg.onclick=function(){var o=mn.classList.toggle("open");bg.classList.toggle("open",o);bg.setAttribute("aria-expanded",o);document.body.classList.toggle("menu-open",o)};
+ $$(".menu a").forEach(function(a){a.addEventListener("click",function(){mn.classList.remove("open");bg.classList.remove("open");document.body.classList.remove("menu-open");bg.setAttribute("aria-expanded",false)})});
  $$("[data-wa]").forEach(function(a){a.href=wa(a.dataset.wa||"");a.target="_blank";a.rel="noopener"});
  $$("[data-cfg]").forEach(function(el){var k=el.dataset.cfg;if(C[k])el.textContent=C[k];else{var row=el.closest("[data-optional]");if(row)row.remove()}});
  $$("[data-ig]").forEach(function(a){a.href=C.instagram});
@@ -60,7 +60,9 @@ document.addEventListener("DOMContentLoaded",function(){
  $$(".year").forEach(function(y){y.textContent=new Date().getFullYear()});
  CT.reveal();
  (window.loadCatalog?window.loadCatalog():Promise.resolve(window.PRODUCTS||[])).then(function(list){
+  if(window.applyPhotos)window.applyPhotos(list);
   P=list;window.PRODUCTS=list;
+  if(window.renderReviews)window.renderReviews();
   var f=$("#featured");if(f)f.innerHTML=P.filter(function(p){return p.featured}).map(CT.card).join("");
   $$("[data-count]").forEach(function(el){el.textContent=P.length});
   if(window.initCatalog)window.initCatalog();
@@ -68,3 +70,14 @@ document.addEventListener("DOMContentLoaded",function(){
  });
 });
 })();
+/* Reseñas de Google (datos reales en js/reviews.js) */
+window.renderReviews=function(){
+ var R=window.REVIEWS,box=document.getElementById("revs");if(!box||!R)return;
+ var e=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+ var st=function(n){return'<span class="stars" aria-label="'+n+' de 5 estrellas">'+"★★★★★".slice(0,n)+'<i>'+"★★★★★".slice(n)+'</i></span>'};
+ if(R.placeUrl){var b=document.getElementById("revbtn");if(b)b.href=R.placeUrl}
+ var s=document.getElementById("revsum");if(s&&R.rating)s.innerHTML='<span class="gscore">'+e(R.rating)+'</span> '+st(5)+' <span class="gcount">'+e(R.total)+' opiniones en Google</span>';
+ if(!R.items||!R.items.length){box.style.display="none";return}
+ box.innerHTML=R.items.map(function(r){return'<figure class="rev rv"><div class="rhead"><img src="'+e(r.avatar)+'" alt="" width="44" height="44" loading="lazy" referrerpolicy="no-referrer"><div><b>'+e(r.name)+'</b><small>'+e(r.when||"")+' · Google</small></div><svg class="gicon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M21.8 10.2H12v3.9h5.6c-.5 2.6-2.8 4-5.6 4a6.1 6.1 0 1 1 3.9-10.8l2.9-2.8A10 10 0 1 0 12 22c5.4 0 9.9-3.9 9.9-10 0-.6 0-1.2-.1-1.8z"/></svg></div>'+st(r.rating||5)+'<blockquote>'+e(r.text)+'</blockquote></figure>'}).join("");
+ if(window.CT&&CT.reveal)CT.reveal();
+};
