@@ -23,13 +23,12 @@ window.SITE_CONFIG = {
 
   // ---- Redes sociales ---- (url vacía = se oculta; seguidores vacío = no se muestra el número)
   socials: [
-    { red: "instagram", url: "https://www.instagram.com/somosculturatech/", usuario: "@somosculturatech", seguidores: "1.940", fecha: "16/10/2026" },
+    { red: "instagram", url: "https://www.instagram.com/somosculturatech/", usuario: "@somosculturatech", seguidores: "1.947", seguidos: "53", fecha: "16/10/2026" },
     { red: "facebook",  url: "https://www.facebook.com/657187777476764", usuario: "Cultura Tech Store", seguidores: "1.300", fecha: "dato del dueño" },
     { red: "tiktok",    url: "https://www.tiktok.com/@culturatechstore", usuario: "@culturatechstore", seguidores: "", fecha: "" }
   ],
   // Tarjeta de Instagram
   instagramBio: "Samsung | iPhone | PlayStation | Notebook | Macbook | Y más",
-  instagramPosts: "44",
   // Imágenes de la grilla (vacío = usa fotos de productos del catálogo como vista previa)
   instagramGrid: [],
 

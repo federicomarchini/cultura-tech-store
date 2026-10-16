@@ -17,8 +17,7 @@
   // Tarjeta Instagram
   var ig=(C.socials||[]).find(function(s){return s.red=="instagram"})||{};
   if($('#igstats')){
-    $('#igstats').innerHTML=(C.instagramPosts?'<span><b>'+C.instagramPosts+'</b> publicaciones</span>':'')+(ig.seguidores?'<span><b>'+ig.seguidores+'</b> seguidores</span>':'');
-    $('#igbio').textContent=C.instagramBio||'';
+    $('#igstats').innerHTML=(ig.seguidores?'<span><b>'+ig.seguidores+'</b> seguidores</span>':'')+(ig.seguidos?'<span><b>'+ig.seguidos+'</b> seguidos</span>':'');
     if(ig.fecha) $('#ignote').textContent='Datos públicos al '+ig.fecha+'. Vista previa de contenido: tocá para ver el perfil.';
     var fill=function(){
       var imgs=(C.instagramGrid&&C.instagramGrid.length)?C.instagramGrid:(window.PRODUCTS||[]).map(function(p){return p.image}).filter(Boolean).filter(function(v,i,a){return a.indexOf(v)==i}).slice(0,6);
