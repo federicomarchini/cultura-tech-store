@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.zip
+*.xlsx
+*.csv
+node_modules/
+.netlify/
+.vercel/
+*.log
