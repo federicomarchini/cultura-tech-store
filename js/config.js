@@ -10,7 +10,7 @@ window.SITE_CONFIG = {
   // Formato internacional sin +, espacios ni guiones. Ej: 5491123456789
   whatsapp: "5491124833748",
   whatsappDisplay: "+54 9 11 2483-3748",
-  email: "culturatechstore@hotmail.com",          // ⚠️ A CONFIRMAR (vacío = se oculta)
+  email: "culturatechstore@gmail.com",
   instagram: "https://www.instagram.com/somosculturatech/",
   instagramUser: "@somosculturatech",
   address: "Almirante Brown 971, B1708 Morón, Provincia de Buenos Aires, Argentina",
@@ -24,8 +24,8 @@ window.SITE_CONFIG = {
   // ---- Redes sociales ---- (url vacía = se oculta; seguidores vacío = no se muestra el número)
   socials: [
     { red: "instagram", url: "https://www.instagram.com/somosculturatech/", usuario: "@somosculturatech", seguidores: "1.940", fecha: "16/10/2026" },
-    { red: "facebook",  url: "", usuario: "Cultura Tech Store", seguidores: "1.300", fecha: "dato del dueño" }, // A CONFIRMAR URL
-    { red: "tiktok",    url: "", usuario: "@culturatechstore", seguidores: "", fecha: "" }                       // A CONFIRMAR URL
+    { red: "facebook",  url: "https://www.facebook.com/657187777476764", usuario: "Cultura Tech Store", seguidores: "1.300", fecha: "dato del dueño" },
+    { red: "tiktok",    url: "https://www.tiktok.com/@culturatechstore", usuario: "@culturatechstore", seguidores: "", fecha: "" }
   ],
   // Tarjeta de Instagram
   instagramBio: "Samsung | iPhone | PlayStation | Notebook | Macbook | Y más",
