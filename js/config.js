@@ -27,10 +27,6 @@ window.SITE_CONFIG = {
     { red: "facebook",  url: "https://www.facebook.com/657187777476764", usuario: "Cultura Tech Store", seguidores: "1.300", fecha: "dato del dueño" },
     { red: "tiktok",    url: "https://www.tiktok.com/@culturatechstore", usuario: "@culturatechstore", seguidores: "", fecha: "" }
   ],
-  // Tarjeta de Instagram
-  instagramBio: "Samsung | iPhone | PlayStation | Notebook | Macbook | Y más",
-  // Imágenes de la grilla (vacío = usa fotos de productos del catálogo como vista previa)
-  instagramGrid: [],
 
   defaultMessage: "¡Hola Cultura Tech! Quiero hacer una consulta."
 };

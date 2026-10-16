@@ -14,17 +14,6 @@
         (counts?'<span><b>'+NAMES[s.red]+'</b><small>'+(s.seguidores?s.seguidores+' seguidores':s.usuario)+'</small></span>':'')+'</a>';
     }).join('');
   });
-  // Tarjeta Instagram
-  var ig=(C.socials||[]).find(function(s){return s.red=="instagram"})||{};
-  if($('#igstats')){
-    $('#igstats').innerHTML=(ig.seguidores?'<span><b>'+ig.seguidores+'</b> seguidores</span>':'')+(ig.seguidos?'<span><b>'+ig.seguidos+'</b> seguidos</span>':'');
-    if(ig.fecha) $('#ignote').textContent='Datos públicos al '+ig.fecha+'. Vista previa de contenido: tocá para ver el perfil.';
-    var fill=function(){
-      var imgs=(C.instagramGrid&&C.instagramGrid.length)?C.instagramGrid:(window.PRODUCTS||[]).map(function(p){return p.image}).filter(Boolean).filter(function(v,i,a){return a.indexOf(v)==i}).slice(0,6);
-      $('#iggrid').innerHTML=imgs.map(function(src){return '<a class="igpost" href="'+(ig.url||'#')+'" target="_blank" rel="noopener" aria-label="Ver en Instagram"><img src="'+src+'" alt="" loading="lazy" width="300" height="300"></a>'}).join('');
-    };
-    fill(); document.addEventListener('catalog:ready',fill); setTimeout(fill,2500);
-  }
   // Reseñas
   var place=(window.REVIEWS&&window.REVIEWS.placeUrl)||'#';
   if($('#gwrite')) $('#gwrite').href=C.GOOGLE_REVIEW_URL||place;
