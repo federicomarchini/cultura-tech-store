@@ -15,5 +15,23 @@ window.SITE_CONFIG = {
   instagramUser: "@somosculturatech",
   address: "Almirante Brown 971, B1708 Morón, Provincia de Buenos Aires, Argentina",
   hours: "Lun a Vie 10 a 19 h · Sáb 10 a 15 h · Dom cerrado", // (vacío = se oculta)
+  // ---- Reseñas desde el sitio ----
+  // URL del Web App de Google Apps Script (ver apps-script-resenas.gs). Vacío = solo botón de Google.
+  APPS_SCRIPT_URL: "",
+  // Link directo "Escribir reseña" (Perfil de Empresa > Pedir reseñas). Vacío = abre la ficha de Maps en reseñas.
+  GOOGLE_REVIEW_URL: "",
+
+  // ---- Redes sociales ---- (url vacía = se oculta; seguidores vacío = no se muestra el número)
+  socials: [
+    { red: "instagram", url: "https://www.instagram.com/somosculturatech/", usuario: "@somosculturatech", seguidores: "1.940", fecha: "16/10/2026" },
+    { red: "facebook",  url: "", usuario: "Cultura Tech Store", seguidores: "1.300", fecha: "dato del dueño" }, // A CONFIRMAR URL
+    { red: "tiktok",    url: "", usuario: "@culturatechstore", seguidores: "", fecha: "" }                       // A CONFIRMAR URL
+  ],
+  // Tarjeta de Instagram
+  instagramBio: "Samsung | iPhone | PlayStation | Notebook | Macbook | Y más",
+  instagramPosts: "44",
+  // Imágenes de la grilla (vacío = usa fotos de productos del catálogo como vista previa)
+  instagramGrid: [],
+
   defaultMessage: "¡Hola Cultura Tech! Quiero hacer una consulta."
 };

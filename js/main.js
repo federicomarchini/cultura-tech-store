@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded",function(){
   $$("[data-count]").forEach(function(el){el.textContent=P.length});
   if(window.initCatalog)window.initCatalog();
   CT.reveal();
+  document.dispatchEvent(new Event("catalog:ready"));
  });
 });
 })();
