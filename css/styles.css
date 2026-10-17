@@ -208,3 +208,12 @@ body.menu-open{overflow:hidden}
 .bens{grid-template-columns:repeat(4,1fr)!important}
 @media(max-width:1000px){.bens{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:520px){.bens{grid-template-columns:1fr!important}}
+/* v2.3 condición + usados */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:rgba(255,255,255,.03)}
+.seg button{background:none;border:0;color:var(--mut);font:inherit;font-size:.85rem;padding:9px 16px;border-radius:999px;cursor:pointer;letter-spacing:.04em}
+.seg button.on{background:linear-gradient(90deg,var(--c1),var(--c2,#4f7cff));color:#fff}
+.seg button:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
+.badge.semi{background:rgba(255,183,77,.14);color:#ffb74d;border-color:rgba(255,183,77,.4)}
+.pbat{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:#7ee2a8;margin:2px 0 6px}
+.pbat svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6}
+@media(max-width:640px){.seg{width:100%}.seg button{flex:1;padding:9px 6px}}

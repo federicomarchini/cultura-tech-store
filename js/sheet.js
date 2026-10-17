@@ -22,7 +22,7 @@ function num(s){
   var n=parseFloat(s);return isFinite(n)&&n>0?n:null;
 }
 function fmt(n,mon){var r=Math.round(n*100)/100,p=r.toLocaleString("es-AR",{maximumFractionDigits:2});return(String(mon).toUpperCase()==="USD"?"USD ":"$ ")+p}
-function slug(s){return key(s).replace(/[^a-z0-9]+/g,"-")}
+function slug(s){return key(String(s).replace(/\+/g,"plus")).replace(/[^a-z0-9]+/g,"-")}
 function yes(v){v=key(v);return v==="si"||v==="sí"||v==="s"||v==="x"||v==="true"||v==="1"}
 function toProducts(rows){
   var h=rows[0].map(key),ix=function(n){return h.indexOf(n)},map={},list=[];
@@ -32,7 +32,7 @@ function toProducts(rows){
     if(!g("modelo"))return;
     if(ix("activo")>-1&&g("activo")&&!yes(g("activo")))return;
     var cond=g("condicion")||"Nuevo",brand=g("marca")||"Otros",id=slug(brand+"-"+g("modelo")+"-"+cond),p=map[id];
-    if(!p){p=map[id]={id:id,name:g("modelo")+(key(cond)==="seminuevo"?" (seminuevo)":""),brand:brand,category:g("categoria")||"Accesorios",condition:cond,variants:[],prices:{},note:"",image:"",featured:false};list.push(p)}
+    if(!p){p=map[id]={id:id,name:g("modelo"),brand:brand,category:g("categoria")||"Accesorios",condition:cond,variants:[],prices:{},note:"",image:"",featured:false};list.push(p)}
     var v=g("variante")||"Única",bat=g("bateria");
     if(bat){bat=bat.replace(/%?$/,"%");v+=" · Bat. "+bat}
     if(p.variants.indexOf(v)<0)p.variants.push(v);
