@@ -11,26 +11,18 @@ var ICONS={
  Wearables:'<rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6l.7-4h4.6L15 6M9 18l.7 4h4.6L15 18M17.5 10.5h1"/>',
  Gaming:'<path d="M6.5 8h11a4.5 4.5 0 0 1 4.3 5.9l-1 3.1a2.6 2.6 0 0 1-4.4 1L14.6 16H9.4l-1.8 2a2.6 2.6 0 0 1-4.4-1l-1-3.1A4.5 4.5 0 0 1 6.5 8z"/><path d="M7.5 10.5v3M6 12h3M15.5 11.5h.01M17.5 13h.01"/>',
  Accesorios:'<rect x="6" y="9" width="12" height="12" rx="2.5"/><path d="M9.5 9V4M14.5 9V4M10 15h4"/>',
- Notebooks:'<rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
- Tablets:'<rect x="4" y="2.5" width="16" height="19" rx="2.5"/><circle cx="12" cy="18.5" r=".6"/>',
- Computadoras:'<rect x="3" y="3.5" width="18" height="12" rx="1.5"/><path d="M9 20.5h6M12 15.5v5"/>',
- Audio:'<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'
+ Notebooks:'<rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>'
 };
 window.CT.icon=function(cat){return'<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[cat]||ICONS.Accesorios)+'</svg>'};
 function priceOf(p,v){return(p.prices||{})[v]||""}
-function pnum(t){var m=String(t).replace(/[^\d,]/g,"").replace(",",".");return parseFloat(m)||0}
-function cardPrice(p){var ks=Object.keys(p.prices||{});if(!ks.length)return"Consultar precio";if(ks.length===1&&p.variants.length===1)return p.prices[ks[0]];
- var best=ks.reduce(function(a,k){return!a||pnum(p.prices[k])<pnum(p.prices[a])?k:a},"");var t=p.prices[best];return"Desde "+t}
-function isUsed(p){return/usado|seminuevo/i.test(p.condition||"")}
-window.CT.isUsed=isUsed;
-function batRange(p){var b=p.variants.map(function(v){var m=/Bat\. (\d+)%/.exec(v);return m?+m[1]:null}).filter(function(x){return x!=null});if(!b.length)return"";var lo=Math.min.apply(0,b),hi=Math.max.apply(0,b);return lo===hi?lo+"%":lo+"–"+hi+"%"}
+function cardPrice(p){var ks=Object.keys(p.prices||{});if(!ks.length)return"Consultar precio";if(p.variants.length===1)return p.prices[ks[0]];var vals=ks.map(function(k){return p.prices[k]});return"Ver precios"}
 function prodMsg(p,v){return"¡Hola Cultura Tech! Quería consultar por: "+p.name+(v?" ("+v+")":"")+". ¿Tienen stock y cuál es el precio?"}
 window.CT.card=function(p){
  var img=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy">':CT.icon(p.category);
- var b=isUsed(p)?'<span class="badge semi">Usado</span>':'<span class="badge">'+esc(p.category)+'</span>';var br=isUsed(p)?batRange(p):"";
+ var b=p.condition&&p.condition!=="Nuevo"?'<span class="badge semi">'+esc(p.condition)+'</span>':'<span class="badge">'+esc(p.category)+'</span>';
  return'<article class="pcard rv" data-id="'+esc(p.id)+'" tabindex="0" role="button" aria-label="Ver '+esc(p.name)+'">'+
  '<div class="pimg">'+b+img+'</div><div class="pbody"><span class="pbrand">'+esc(p.brand)+'</span><h3>'+esc(p.name)+'</h3>'+
- (br?'<div class="pbat"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M21.5 10.5v3"/><rect x="4.5" y="9" width="11" height="6" rx="1" fill="currentColor" stroke="none"/></svg>Batería '+br+'</div>':'')+'<div class="pvars">'+esc(p.variants.length>4?p.variants.length+" opciones":p.variants.join(" · "))+'</div><div class="pact"><span class="pprice">'+esc(cardPrice(p))+'</span>'+
+ '<div class="pvars">'+esc(p.variants.join(" · "))+'</div><div class="pact"><span class="pprice">'+esc(cardPrice(p))+'</span>'+
  '<a class="mini" href="'+wa(prodMsg(p))+'" target="_blank" rel="noopener" data-stop>'+WA_SVG+'Consultar</a></div></div></article>';
 };
 /* modal */
@@ -71,8 +63,7 @@ document.addEventListener("DOMContentLoaded",function(){
   if(window.applyPhotos)window.applyPhotos(list);
   P=list;window.PRODUCTS=list;
   if(window.renderReviews)window.renderReviews();
-  var f=$("#featured");if(f)f.innerHTML=P.filter(function(p){return p.featured}).slice(0,8).map(CT.card).join("");
-  var u=$("#usados-grid");if(u){var U=P.filter(isUsed);u.innerHTML=U.slice(0,8).map(CT.card).join("");$$("[data-ucount]").forEach(function(el){el.textContent=U.length});var sec=$("#usados");if(sec&&!U.length)sec.hidden=true}
+  var f=$("#featured");if(f)f.innerHTML=P.filter(function(p){return p.featured}).map(CT.card).join("");
   $$("[data-count]").forEach(function(el){el.textContent=P.length});
   if(window.initCatalog)window.initCatalog();
   CT.reveal();
