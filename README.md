@@ -8,7 +8,7 @@ index.html          Inicio (hero, marcas, destacados, beneficios, nosotros, ubic
 catalogo.html       Catálogo con búsqueda, filtros, orden y detalle de producto
 404.html            Página de error
 js/config.js        ⚙️ WhatsApp, email, horarios, Instagram (EDITAR ACÁ)
-data/products.js    🛒 Catálogo de productos (EDITAR ACÁ)
+data/products.js    🛒 Catálogo incluido (respaldo si la planilla no tiene el formato nuevo)
 css/styles.css      Estilos
 js/main.js, js/catalog.js   Lógica
 assets/             Logo, favicon, imagen para redes (og-image.jpg)
@@ -32,7 +32,9 @@ La web puede leer el catálogo directamente de una planilla de Google. Cambiás 
 4. Copiá el link y pegalo en `js/config.js`, en `SHEET_CSV_URL: "..."`.
 5. Volvé a subir el sitio. Listo: desde ahora solo editás la planilla.
 
-Columnas (una fila por variante): `activo` (SI/NO), `marca`, `categoria`, `modelo`, `variante`, `condicion` (Nuevo/Seminuevo), `bateria`, `moneda` (USD/ARS), `precio` (solo número; vacío = "Consultar precio"; acepta 1341500 o 1.341.500), `destacado` (SI/NO), `foto` (archivo en `assets/productos/` o link https), `descripcion`. Las filas con igual marca + modelo + condición se agrupan en un solo producto. La hoja "Instrucciones" de la planilla lo explica en detalle.
+Columnas (formato v2.4, **una fila = un producto**): `activo` (SI/NO), `marca`, `categoria`, `modelo` (nombre completo, ej. "iPhone 17 Pro 256GB"), `variante` (opcional), `condicion` (Nuevo/Usado), `bateria` (% para usados), `moneda` (USD/ARS), `precio` (solo número; vacío = "Consultar precio"), `destacado` (SI = aparece en el inicio), `foto` (archivo en `assets/productos/` o link https), `descripcion`, `seccion` ("Nuevos" o "Usados premium"). Los "Usados premium" aparecen en la pestaña **Usados Premium** del catálogo (`catalogo.html?seccion=usados-premium#usados-premium`).
+
+**Importante:** la web solo usa la planilla si tiene la columna `seccion`. Si la planilla todavía tiene el formato anterior (sin `seccion`), la web muestra el catálogo incluido en `data/products.js`. Archivo listo para pegar: `cultura-tech-productos-v24.xlsx` (hoja Productos).
 
 Si el link está vacío o Google no responde, la web usa automáticamente la copia local `data/products.js` (por eso conviene actualizarla de vez en cuando).
 
@@ -40,24 +42,25 @@ Si el link está vacío o Google no responde, la web usa automáticamente la cop
 Abrí `data/products.js`. Cada producto es un bloque así:
 ```js
 {
-  "id": "iphone-17-pro",            // único, sin espacios ni acentos
-  "name": "iPhone 17 Pro",
+  "id": "apple-iphone-13-pro-128gb-graphite-100-usado", // único, sin espacios ni acentos
+  "name": "iPhone 13 Pro 128GB Graphite",
   "brand": "Apple",                  // aparece en el filtro de marcas
-  "category": "Smartphones",         // Smartphones | Wearables | Gaming | Accesorios | Notebooks
-  "variants": ["256GB · Silver"],    // capacidades / colores
-  "condition": "Nuevo",              // o "Seminuevo"
-  "note": "",                        // ej. "Condición de batería: 99%"
-  "prices": {                        // precio por variante (texto). Variante sin precio = "Consultar precio"
-    "256GB · Silver": "USD 1.299"    //   ej. "$ 1.345.000" para pesos
-  },
-  "image": "assets/productos/iphone-17-pro.webp", // vacío = ícono elegante
-  "featured": true                   // true = aparece en "Destacados" del inicio
+  "category": "Smartphones",         // Smartphones | Notebooks | Audio | Wearables | Gaming | Accesorios
+  "condition": "Usado",              // "Nuevo" o "Usado"
+  "section": "Usados premium",       // "Nuevos" o "Usados premium"
+  "used": true,                      // true = va a la pestaña Usados Premium
+  "battery": "100%",                 // solo usados
+  "variant": "",
+  "price": "USD 460",                // vacío = "Consultar precio"
+  "note": "",
+  "image": "assets/productos/iphone-13-pro-graphite.webp",
+  "featured": false                  // true = aparece en "Destacados" del inicio
 }
 ```
 - Para agregar: copiá un bloque, cambiá los datos y separalo con coma.
 - Para quitar: borrá el bloque completo (con su coma).
 - Fotos: subilas a `assets/productos/` (ideal .webp 600×600, fondo transparente) y poné la ruta en `image`.
-- Las fotos actuales son imágenes oficiales de producto (Apple, Samsung, Sony) descargadas al sitio (no se enlazan a terceros). Son ilustrativas: el color de la foto puede no coincidir con la variante.
+- Las fotos actuales son imágenes oficiales de producto (Apple, Samsung, Xiaomi, Sony, Nintendo, Verbatim) descargadas al sitio (no se enlazan a terceros). En los iPhone usados la foto corresponde al color del equipo.
 - Categorías y marcas nuevas aparecen solas en los filtros.
 
 ## Dominio (antes de publicar)

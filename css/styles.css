@@ -208,3 +208,22 @@ body.menu-open{overflow:hidden}
 .bens{grid-template-columns:repeat(4,1fr)!important}
 @media(max-width:1000px){.bens{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:520px){.bens{grid-template-columns:1fr!important}}
+/* v2.4: Usados Premium */
+.tabs{display:flex;gap:6px;margin-bottom:14px;padding:4px;border:1px solid var(--line);border-radius:999px;width:max-content;max-width:100%;background:rgba(255,255,255,.02)}
+.tabs button{padding:9px 20px;border-radius:999px;border:0;background:transparent;color:#b8c0cc;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:.2s;white-space:nowrap}
+.tabs button:hover{color:var(--txt)}
+.tabs button.on{background:var(--g);color:#fff;box-shadow:0 6px 20px rgba(0,180,255,.25)}
+.tabs .tn{opacity:.8;font-size:.72rem}
+.uphead{text-align:center;padding:26px 0 8px}
+.uphead h2{font-size:clamp(1.5rem,3.6vw,2.3rem);margin:8px 0 10px}
+.uphead .lead{margin:0 auto;max-width:620px}
+.upcta{padding:70px 0}
+.upbtn{font-size:1rem;padding:22px 40px;letter-spacing:.1em;gap:14px}
+.upbtn svg{width:22px;height:22px;flex:none}
+.upbtn .upn{opacity:.85;font-size:.85rem}
+.pbat{display:flex;align-items:center;gap:7px;font-size:.8rem;color:#7ee2a8;margin-bottom:16px}
+.pbat svg,.mbat svg{width:20px;height:20px;flex:none}
+.mbat{display:flex;align-items:center;gap:8px;color:#7ee2a8}
+@media(max-width:760px){.tabs{width:100%}.tabs button{flex:1;padding:9px 10px;font-size:.74rem}.upcta{padding:50px 0}.upbtn{font-size:.82rem;padding:18px 22px;width:100%;justify-content:center}}
+.pcard .pimg img{padding:46px 22px 14px}
+@media(max-width:760px){.pcard .pimg img{padding:40px 12px 10px}}
