@@ -310,3 +310,4 @@ body.menu-open{overflow:hidden}
 .ug-chips li::before{content:"✓";color:var(--c1);margin-right:6px;font-weight:700}
 .mgift{display:flex;gap:8px;align-items:flex-start;color:#e8ebf0}.mgift .gic{flex:none;width:18px;height:18px;color:var(--c1);margin-top:2px}
 @media(max-width:760px){.upgift{padding:14px;gap:12px;align-items:flex-start;margin-top:18px}.ug-ic{width:40px;height:40px;border-radius:12px}.ug-ic .gic{width:20px;height:20px}.ug-tx p{font-size:.86rem}.ug-chips li{font-size:.66rem;padding:4px 10px}}
+.uphead .upgift{margin-top:20px}
