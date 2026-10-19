@@ -20,6 +20,8 @@ window.initCatalog=function(){
  function tabs(){
   $$("#tabs [data-s]").forEach(function(b){var on=b.dataset.s===st.tab;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
   var h=$("#"+UP);if(h)h.hidden=st.tab!==UP;
+  var G=(window.SITE_CONFIG||{}).usedGift;if(h&&G&&G.enabled!==false&&G.text&&!$(".upgift",h)){var g=document.createElement("div");g.className="upgift";var e=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+   g.innerHTML='<span class="ug-ic">'+CT.GIFT+'</span><div class="ug-tx">'+(G.title?'<small>'+e(G.title)+'</small>':'')+'<p>'+e(G.text)+'</p>'+((G.items||[]).length?'<ul class="ug-chips">'+G.items.map(function(i){return'<li>'+e(i)+'</li>'}).join("")+'</ul>':'')+'</div>';h.appendChild(g)}
   $("#q").placeholder=st.tab===UP?"Buscar: 13 Pro, 256GB, Natural…":"Buscar: iPhone 17, S26 Ultra, 512GB…";
  }
  function render(){

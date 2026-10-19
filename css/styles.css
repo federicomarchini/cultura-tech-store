@@ -299,3 +299,14 @@ body.menu-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.pmodal,.pm-card{transition:none}}
 .pm-card:focus{outline:none}
 @media(max-width:760px){.pa4{right:auto;left:72%;top:16%;width:15%}}
+/* v2.6: regalo usados premium */
+.upgift{position:relative;display:flex;gap:16px;align-items:center;max-width:720px;margin:26px auto 0;padding:18px 22px;border-radius:20px;background:linear-gradient(#0e1118,#0e1118) padding-box,linear-gradient(120deg,var(--c1),#7b5cff 55%,rgba(123,92,255,.15)) border-box;border:1px solid transparent;box-shadow:0 14px 40px rgba(0,0,0,.35),0 0 30px rgba(34,197,255,.06);text-align:left}
+.ug-ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--g);color:#fff;box-shadow:0 8px 22px rgba(34,160,255,.25)}
+.ug-ic .gic{width:24px;height:24px}
+.ug-tx small{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--c1);margin-bottom:4px}
+.ug-tx p{margin:0;color:#e8ebf0;font-size:.95rem;line-height:1.5}
+.ug-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0}
+.ug-chips li{font-size:.72rem;letter-spacing:.06em;color:#c5cbd5;padding:5px 12px;border-radius:999px;border:1px solid #2a3140;background:rgba(255,255,255,.03)}
+.ug-chips li::before{content:"✓";color:var(--c1);margin-right:6px;font-weight:700}
+.mgift{display:flex;gap:8px;align-items:flex-start;color:#e8ebf0}.mgift .gic{flex:none;width:18px;height:18px;color:var(--c1);margin-top:2px}
+@media(max-width:760px){.upgift{padding:14px;gap:12px;align-items:flex-start;margin-top:18px}.ug-ic{width:40px;height:40px;border-radius:12px}.ug-ic .gic{width:20px;height:20px}.ug-tx p{font-size:.86rem}.ug-chips li{font-size:.66rem;padding:4px 10px}}

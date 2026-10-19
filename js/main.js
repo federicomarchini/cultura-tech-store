@@ -24,6 +24,7 @@ window.CT.rule=function(p){var L=C.ribbons||[],n=nk(p.name);for(var i=0;i<L.leng
 window.CT.deal=function(p){var r=CT.rule(p),pct=+(r&&r.pct||C.discountPct||0),n=+p.priceNum||0;if(!r||!r.discount||!pct||!n)return null;var d=Math.round(n*(100-pct)/100),cur=/^\$/.test(p.price||"")?"$ ":"USD ";return{pct:pct,num:d,price:cur+d.toLocaleString("es-AR")}};
 window.CT.eff=function(p){var d=CT.deal(p);return d?d.num:(+p.priceNum||0)};
 function priceHTML(p,cls,empty){var d=CT.deal(p);return d?'<span class="'+cls+' deal"><s>'+esc(p.price)+'</s><b>'+esc(d.price)+'</b></span>':'<span class="'+cls+'">'+esc(p.price||empty)+'</span>'}
+var GIFT='<svg class="gic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg>';window.CT.GIFT=GIFT;
 function ribbonHTML(p){var t=CT.ribbon(p);return t?'<div class="ribbon" aria-label="'+esc(t)+'"><span>'+esc(t)+'</span></div>':''}
 window.CT.card=function(p){
  var img=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy">':CT.icon(p.category);
@@ -39,7 +40,7 @@ function openModal(p){
  var m=$("#modal");if(!m)return;
  $(".mbox",m).innerHTML='<button class="mclose" aria-label="Cerrar">×</button><div class="pimg">'+ribbonHTML(p)+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'">':CT.icon(p.category))+'</div>'+
  '<div class="mdet"><span class="pbrand">'+esc(p.brand)+' · '+esc(p.used?"Usados premium":p.category)+'</span><h3>'+esc(p.name)+'</h3>'+
- '<dl><dt>Condición</dt><dd>'+esc(p.used?"Usado premium":p.condition)+'</dd>'+(p.variant?'<dt>Variante</dt><dd>'+esc(p.variant)+'</dd>':'')+(p.battery?'<dt>Batería</dt><dd class="mbat">'+BAT+esc(p.battery)+'</dd>':'')+(p.note?'<dt>Detalle</dt><dd>'+esc(p.note)+'</dd>':'')+'<dt>Precio</dt><dd id="mprice">'+priceHTML(p,"mprice","Consultar por WhatsApp")+'</dd></dl>'+
+ '<dl><dt>Condición</dt><dd>'+esc(p.used?"Usado premium":p.condition)+'</dd>'+(p.variant?'<dt>Variante</dt><dd>'+esc(p.variant)+'</dd>':'')+(p.battery?'<dt>Batería</dt><dd class="mbat">'+BAT+esc(p.battery)+'</dd>':'')+(p.used&&C.usedGift&&C.usedGift.enabled!==false&&C.usedGift.modal?'<dt>Regalo</dt><dd class="mgift">'+GIFT+esc(C.usedGift.modal)+'</dd>':'')+(p.note?'<dt>Detalle</dt><dd>'+esc(p.note)+'</dd>':'')+'<dt>Precio</dt><dd id="mprice">'+priceHTML(p,"mprice","Consultar por WhatsApp")+'</dd></dl>'+
  '<a class="btn wa" id="mwa" target="_blank" rel="noopener" href="'+wa(prodMsg(p))+'" style="margin-top:22px">'+WA_SVG+'Consultar por WhatsApp</a>'+
  '<p class="note">Precios de referencia en USD, sujetos a disponibilidad. Consultá disponibilidad y precio final por WhatsApp. Productos 100% originales.</p></div>';
  $(".mclose",m).onclick=closeModal;m.classList.add("open");document.body.style.overflow="hidden";$(".mclose",m).focus();
