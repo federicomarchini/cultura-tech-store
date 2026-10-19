@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded",function(){
  $$("[data-mail]").forEach(function(a){if(C.email)a.href="mailto:"+C.email});
  $$(".year").forEach(function(y){y.textContent=new Date().getFullYear()});
  CT.reveal();
- (function(){var pr=C.promo;if(!pr||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text),DAYS=pr.days||7;try{var t=+localStorage.getItem(k);if(t&&Date.now()-t<DAYS*864e5)return}catch(e){}
+ (function(){var pr=C.promo;if(!pr||pr.enabled===false||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text),DAYS=pr.days||7;try{var t=+localStorage.getItem(k);if(t&&Date.now()-t<DAYS*864e5)return}catch(e){}
   var I="assets/productos/";
   var d=document.createElement("div");d.className="pmodal";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","pm-h");
   d.innerHTML='<div class="pm-card" tabindex="-1"><button class="pm-x" type="button" aria-label="Cerrar">×</button>'+
