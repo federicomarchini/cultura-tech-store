@@ -18,19 +18,22 @@ window.CT.icon=function(cat){return'<svg viewBox="0 0 24 24" stroke-linecap="rou
 var BAT='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2.5" y="7.5" width="17" height="9" rx="2"/><path d="M22 10.5v3"/><rect x="5" y="10" width="10" height="4" rx=".6" fill="currentColor" stroke="none"/></svg>';
 function prodMsg(p){return"¡Hola Cultura Tech! Quería consultar por: "+p.name+(p.variant?" ("+p.variant+")":"")+(p.used?" (usado"+(p.battery?", batería "+p.battery:"")+")":"")+(p.price?" — "+p.price:"")+". ¿Está disponible?"}
 window.CT.isUsed=function(p){return!!p.used};
+function nk(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\+/g,"plus").replace(/[^a-z0-9]/g,"")}
+window.CT.ribbon=function(p){var L=C.ribbons||[],n=nk(p.name);for(var i=0;i<L.length;i++){var m=[].concat(L[i].match||[]);if(m.length&&m.every(function(w){return n.indexOf(nk(w))>-1}))return L[i].text||"Descuento"}return""};
+function ribbonHTML(p){var t=CT.ribbon(p);return t?'<div class="ribbon" aria-label="'+esc(t)+'"><span>'+esc(t)+'</span></div>':''}
 window.CT.card=function(p){
  var img=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy">':CT.icon(p.category);
  var b=p.used?'<span class="badge semi">Usado premium</span>':'<span class="badge">'+esc(p.category)+'</span>';
  var sub=p.used?(p.battery?'<div class="pbat">'+BAT+'Batería '+esc(p.battery)+'</div>':''):(p.variant?'<div class="pvars">'+esc(p.variant)+'</div>':'');
  return'<article class="pcard rv'+(p.used?' used':'')+'" data-id="'+esc(p.id)+'" tabindex="0" role="button" aria-label="Ver '+esc(p.name)+'">'+
- '<div class="pimg">'+b+img+'</div><div class="pbody"><span class="pbrand">'+esc(p.brand)+'</span><h3>'+esc(p.name)+'</h3>'+sub+
+ '<div class="pimg">'+b+ribbonHTML(p)+img+'</div><div class="pbody"><span class="pbrand">'+esc(p.brand)+'</span><h3>'+esc(p.name)+'</h3>'+sub+
  '<div class="pact"><span class="pprice">'+esc(p.price||"Consultar precio")+'</span>'+
  '<a class="mini" href="'+wa(prodMsg(p))+'" target="_blank" rel="noopener" data-stop>'+WA_SVG+'Consultar</a></div></div></article>';
 };
 /* modal */
 function openModal(p){
  var m=$("#modal");if(!m)return;
- $(".mbox",m).innerHTML='<button class="mclose" aria-label="Cerrar">×</button><div class="pimg">'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'">':CT.icon(p.category))+'</div>'+
+ $(".mbox",m).innerHTML='<button class="mclose" aria-label="Cerrar">×</button><div class="pimg">'+ribbonHTML(p)+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'">':CT.icon(p.category))+'</div>'+
  '<div class="mdet"><span class="pbrand">'+esc(p.brand)+' · '+esc(p.used?"Usados premium":p.category)+'</span><h3>'+esc(p.name)+'</h3>'+
  '<dl><dt>Condición</dt><dd>'+esc(p.used?"Usado premium":p.condition)+'</dd>'+(p.variant?'<dt>Variante</dt><dd>'+esc(p.variant)+'</dd>':'')+(p.battery?'<dt>Batería</dt><dd class="mbat">'+BAT+esc(p.battery)+'</dd>':'')+(p.note?'<dt>Detalle</dt><dd>'+esc(p.note)+'</dd>':'')+'<dt>Precio</dt><dd id="mprice" class="mprice">'+esc(p.price||"Consultar por WhatsApp")+'</dd></dl>'+
  '<a class="btn wa" id="mwa" target="_blank" rel="noopener" href="'+wa(prodMsg(p))+'" style="margin-top:22px">'+WA_SVG+'Consultar por WhatsApp</a>'+
@@ -58,6 +61,12 @@ document.addEventListener("DOMContentLoaded",function(){
  $$("[data-mail]").forEach(function(a){if(C.email)a.href="mailto:"+C.email});
  $$(".year").forEach(function(y){y.textContent=new Date().getFullYear()});
  CT.reveal();
+ (function(){var pr=C.promo;if(!pr||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text);try{if(localStorage.getItem(k))return}catch(e){}
+  var d=document.createElement("aside");d.className="promo";d.setAttribute("role","note");d.setAttribute("aria-label","Promoción");
+  d.innerHTML='<span class="promo-ic" aria-hidden="true">%</span><div class="promo-tx"><small>Promo</small><p>'+esc(pr.text)+'</p>'+(pr.link?'<a href="'+esc(pr.link)+'">'+esc(pr.linkText||"Ver más")+' →</a>':'')+'</div><button class="promo-x" type="button" aria-label="Cerrar promoción">×</button>';
+  document.body.appendChild(d);setTimeout(function(){d.classList.add("show")},1200);
+  $(".promo-x",d).onclick=function(){d.classList.remove("show");try{localStorage.setItem(k,"1")}catch(e){}setTimeout(function(){d.remove()},400)};
+ })();
  (window.loadCatalog?window.loadCatalog():Promise.resolve(window.PRODUCTS||[])).then(function(list){
   if(window.applyPhotos)window.applyPhotos(list);
   P=list;window.PRODUCTS=list;

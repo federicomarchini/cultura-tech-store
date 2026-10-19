@@ -28,5 +28,17 @@ window.SITE_CONFIG = {
     { red: "tiktok",    url: "https://www.tiktok.com/@culturatechstore", usuario: "@culturatechstore", seguidores: "", fecha: "" }
   ],
 
+  // ---- Promo (cartel chico, se puede cerrar; al cambiar "id" vuelve a mostrarse) ---- (text vacío = sin cartel)
+  promo: { id: "promo-accesorios-15", text: "15% de descuento en accesorios con la compra de tu nuevo teléfono", link: "catalogo.html?cat=Accesorios", linkText: "Ver accesorios" },
+
+  // ---- Cintas de descuento en productos ----
+  // Cada regla: palabras que deben estar TODAS en el nombre del modelo (sin importar mayúsculas, acentos, espacios ni signos).
+  // Funciona igual con la planilla o con el catálogo incluido. Para quitar una cinta, borrá su línea.
+  ribbons: [
+    { match: ["airpods pro 3"], text: "HOY 10% DE DESCUENTO" },
+    { match: ["galaxy buds 3"], text: "HOY 10% DE DESCUENTO" },
+    { match: ["powerbank", "verbatim"], text: "HOY 10% DE DESCUENTO" }
+  ],
+
   defaultMessage: "¡Hola Cultura Tech! Quiero hacer una consulta."
 };
