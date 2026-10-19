@@ -34,10 +34,11 @@ window.SITE_CONFIG = {
   // ---- Cintas de descuento en productos ----
   // Cada regla: palabras que deben estar TODAS en el nombre del modelo (sin importar mayúsculas, acentos, espacios ni signos).
   // Funciona igual con la planilla o con el catálogo incluido. Para quitar una cinta, borrá su línea.
+  discountPct: 10, // % de descuento "HOY" aplicado a los productos con cinta (sobre el precio del sheet)
   ribbons: [
-    { match: ["airpods pro 3"], text: "HOY 10% DE DESCUENTO" },
-    { match: ["galaxy buds 3"], text: "HOY 10% DE DESCUENTO" },
-    { match: ["powerbank", "verbatim"], text: "HOY 10% DE DESCUENTO" }
+    { match: ["airpods pro 3"], text: "HOY 10% DE DESCUENTO", discount: true },
+    { match: ["galaxy buds 3"], text: "HOY 10% DE DESCUENTO", discount: true },
+    { match: ["powerbank", "verbatim"], text: "HOY 10% DE DESCUENTO", discount: true }
   ],
 
   defaultMessage: "¡Hola Cultura Tech! Quiero hacer una consulta."

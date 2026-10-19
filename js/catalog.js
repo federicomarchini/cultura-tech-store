@@ -30,6 +30,7 @@ window.initCatalog=function(){
   if(st.sort==="az")r.sort(cmp);
   if(st.sort==="za")r.sort(function(a,b){return cmp(b,a)});
   if(st.sort==="brand")r.sort(function(a,b){return a.brand.localeCompare(b.brand)||cmp(a,b)});
+  if(st.sort==="pasc"||st.sort==="pdesc"){var s=st.sort==="pasc"?1:-1;r.sort(function(a,b){var x=CT.eff(a),y=CT.eff(b);if(!x!==!y)return x?-1:1;return s*(x-y)||cmp(a,b)})}
   $("#grid").innerHTML=r.map(CT.card).join("");
   $("#count").textContent=r.length+(r.length===1?" producto":" productos")+(st.tab===UP?" · Usados premium":"");
   $("#empty").style.display=r.length?"none":"block";

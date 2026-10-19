@@ -16,10 +16,14 @@ var ICONS={
 };
 window.CT.icon=function(cat){return'<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[cat]||ICONS.Accesorios)+'</svg>'};
 var BAT='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2.5" y="7.5" width="17" height="9" rx="2"/><path d="M22 10.5v3"/><rect x="5" y="10" width="10" height="4" rx=".6" fill="currentColor" stroke="none"/></svg>';
-function prodMsg(p){return"¡Hola Cultura Tech! Quería consultar por: "+p.name+(p.variant?" ("+p.variant+")":"")+(p.used?" (usado"+(p.battery?", batería "+p.battery:"")+")":"")+(p.price?" — "+p.price:"")+". ¿Está disponible?"}
+function prodMsg(p){return"¡Hola Cultura Tech! Quería consultar por: "+p.name+(p.variant?" ("+p.variant+")":"")+(p.used?" (usado"+(p.battery?", batería "+p.battery:"")+")":"")+(CT.deal(p)?" — "+CT.deal(p).price+" con el "+CT.deal(p).pct+"% de descuento de hoy (antes "+p.price+")":(p.price?" — "+p.price:""))+". ¿Está disponible?"}
 window.CT.isUsed=function(p){return!!p.used};
 function nk(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\+/g,"plus").replace(/[^a-z0-9]/g,"")}
 window.CT.ribbon=function(p){var L=C.ribbons||[],n=nk(p.name);for(var i=0;i<L.length;i++){var m=[].concat(L[i].match||[]);if(m.length&&m.every(function(w){return n.indexOf(nk(w))>-1}))return L[i].text||"Descuento"}return""};
+window.CT.rule=function(p){var L=C.ribbons||[],n=nk(p.name);for(var i=0;i<L.length;i++){var m=[].concat(L[i].match||[]);if(m.length&&m.every(function(w){return n.indexOf(nk(w))>-1}))return L[i]}return null};
+window.CT.deal=function(p){var r=CT.rule(p),pct=+(r&&r.pct||C.discountPct||0),n=+p.priceNum||0;if(!r||!r.discount||!pct||!n)return null;var d=Math.round(n*(100-pct)/100),cur=/^\$/.test(p.price||"")?"$ ":"USD ";return{pct:pct,num:d,price:cur+d.toLocaleString("es-AR")}};
+window.CT.eff=function(p){var d=CT.deal(p);return d?d.num:(+p.priceNum||0)};
+function priceHTML(p,cls,empty){var d=CT.deal(p);return d?'<span class="'+cls+' deal"><s>'+esc(p.price)+'</s><b>'+esc(d.price)+'</b></span>':'<span class="'+cls+'">'+esc(p.price||empty)+'</span>'}
 function ribbonHTML(p){var t=CT.ribbon(p);return t?'<div class="ribbon" aria-label="'+esc(t)+'"><span>'+esc(t)+'</span></div>':''}
 window.CT.card=function(p){
  var img=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy">':CT.icon(p.category);
@@ -27,7 +31,7 @@ window.CT.card=function(p){
  var sub=p.used?(p.battery?'<div class="pbat">'+BAT+'Batería '+esc(p.battery)+'</div>':''):(p.variant?'<div class="pvars">'+esc(p.variant)+'</div>':'');
  return'<article class="pcard rv'+(p.used?' used':'')+'" data-id="'+esc(p.id)+'" tabindex="0" role="button" aria-label="Ver '+esc(p.name)+'">'+
  '<div class="pimg">'+b+ribbonHTML(p)+img+'</div><div class="pbody"><span class="pbrand">'+esc(p.brand)+'</span><h3>'+esc(p.name)+'</h3>'+sub+
- '<div class="pact"><span class="pprice">'+esc(p.price||"Consultar precio")+'</span>'+
+ '<div class="pact">'+priceHTML(p,"pprice","Consultar precio")+''+
  '<a class="mini" href="'+wa(prodMsg(p))+'" target="_blank" rel="noopener" data-stop>'+WA_SVG+'Consultar</a></div></div></article>';
 };
 /* modal */
@@ -35,7 +39,7 @@ function openModal(p){
  var m=$("#modal");if(!m)return;
  $(".mbox",m).innerHTML='<button class="mclose" aria-label="Cerrar">×</button><div class="pimg">'+ribbonHTML(p)+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'">':CT.icon(p.category))+'</div>'+
  '<div class="mdet"><span class="pbrand">'+esc(p.brand)+' · '+esc(p.used?"Usados premium":p.category)+'</span><h3>'+esc(p.name)+'</h3>'+
- '<dl><dt>Condición</dt><dd>'+esc(p.used?"Usado premium":p.condition)+'</dd>'+(p.variant?'<dt>Variante</dt><dd>'+esc(p.variant)+'</dd>':'')+(p.battery?'<dt>Batería</dt><dd class="mbat">'+BAT+esc(p.battery)+'</dd>':'')+(p.note?'<dt>Detalle</dt><dd>'+esc(p.note)+'</dd>':'')+'<dt>Precio</dt><dd id="mprice" class="mprice">'+esc(p.price||"Consultar por WhatsApp")+'</dd></dl>'+
+ '<dl><dt>Condición</dt><dd>'+esc(p.used?"Usado premium":p.condition)+'</dd>'+(p.variant?'<dt>Variante</dt><dd>'+esc(p.variant)+'</dd>':'')+(p.battery?'<dt>Batería</dt><dd class="mbat">'+BAT+esc(p.battery)+'</dd>':'')+(p.note?'<dt>Detalle</dt><dd>'+esc(p.note)+'</dd>':'')+'<dt>Precio</dt><dd id="mprice">'+priceHTML(p,"mprice","Consultar por WhatsApp")+'</dd></dl>'+
  '<a class="btn wa" id="mwa" target="_blank" rel="noopener" href="'+wa(prodMsg(p))+'" style="margin-top:22px">'+WA_SVG+'Consultar por WhatsApp</a>'+
  '<p class="note">Precios de referencia en USD, sujetos a disponibilidad. Consultá disponibilidad y precio final por WhatsApp. Productos 100% originales.</p></div>';
  $(".mclose",m).onclick=closeModal;m.classList.add("open");document.body.style.overflow="hidden";$(".mclose",m).focus();
@@ -63,7 +67,7 @@ document.addEventListener("DOMContentLoaded",function(){
  CT.reveal();
  (function(){var pr=C.promo;if(!pr||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text);try{if(localStorage.getItem(k))return}catch(e){}
   var d=document.createElement("aside");d.className="promo";d.setAttribute("role","note");d.setAttribute("aria-label","Promoción");
-  d.innerHTML='<span class="promo-ic" aria-hidden="true">%</span><div class="promo-tx"><small>Promo</small><p>'+esc(pr.text)+'</p>'+(pr.link?'<a href="'+esc(pr.link)+'">'+esc(pr.linkText||"Ver más")+' →</a>':'')+'</div><button class="promo-x" type="button" aria-label="Cerrar promoción">×</button>';
+  d.innerHTML='<span class="promo-ic" aria-hidden="true">15%</span><div class="promo-tx"><small>Promo exclusiva</small><p>'+esc(pr.text)+'</p>'+(pr.link?'<a href="'+esc(pr.link)+'">'+esc(pr.linkText||"Ver más")+' →</a>':'')+'</div><button class="promo-x" type="button" aria-label="Cerrar promoción">×</button>';
   document.body.appendChild(d);setTimeout(function(){d.classList.add("show")},1200);
   $(".promo-x",d).onclick=function(){d.classList.remove("show");try{localStorage.setItem(k,"1")}catch(e){}setTimeout(function(){d.remove()},400)};
  })();
