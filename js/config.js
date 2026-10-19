@@ -29,7 +29,7 @@ window.SITE_CONFIG = {
   ],
 
   // ---- Promo (cartel chico, se puede cerrar; al cambiar "id" vuelve a mostrarse) ---- (text vacío = sin cartel)
-  promo: { id: "promo-accesorios-15", text: "15% de descuento en accesorios con la compra de tu nuevo teléfono", link: "catalogo.html?cat=Accesorios", linkText: "Ver accesorios" },
+  promo: { id: "promo-accesorios-15", days: 7, eyebrow: "PROMO EXCLUSIVA", headline: "Estrenás teléfono,", big: "15% OFF en accesorios", text: "15% de descuento en accesorios con la compra de tu nuevo teléfono", copy: "Con la compra de tu nuevo teléfono llevate AirPods, cargadores, cables y más con 15% de descuento.", link: "catalogo.html?cat=Accesorios", linkText: "Ver accesorios" },
 
   // ---- Cintas de descuento en productos ----
   // Cada regla: palabras que deben estar TODAS en el nombre del modelo (sin importar mayúsculas, acentos, espacios ni signos).

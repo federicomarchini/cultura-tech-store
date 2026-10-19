@@ -65,11 +65,18 @@ document.addEventListener("DOMContentLoaded",function(){
  $$("[data-mail]").forEach(function(a){if(C.email)a.href="mailto:"+C.email});
  $$(".year").forEach(function(y){y.textContent=new Date().getFullYear()});
  CT.reveal();
- (function(){var pr=C.promo;if(!pr||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text);try{if(localStorage.getItem(k))return}catch(e){}
-  var d=document.createElement("aside");d.className="promo";d.setAttribute("role","note");d.setAttribute("aria-label","Promoción");
-  d.innerHTML='<span class="promo-ic" aria-hidden="true">15%</span><div class="promo-tx"><small>Promo exclusiva</small><p>'+esc(pr.text)+'</p>'+(pr.link?'<a href="'+esc(pr.link)+'">'+esc(pr.linkText||"Ver más")+' →</a>':'')+'</div><button class="promo-x" type="button" aria-label="Cerrar promoción">×</button>';
-  document.body.appendChild(d);setTimeout(function(){d.classList.add("show")},1200);
-  $(".promo-x",d).onclick=function(){d.classList.remove("show");try{localStorage.setItem(k,"1")}catch(e){}setTimeout(function(){d.remove()},400)};
+ (function(){var pr=C.promo;if(!pr||!pr.text)return;var k="ct-promo-"+(pr.id||pr.text),DAYS=pr.days||7;try{var t=+localStorage.getItem(k);if(t&&Date.now()-t<DAYS*864e5)return}catch(e){}
+  var I="assets/productos/";
+  var d=document.createElement("div");d.className="pmodal";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","pm-h");
+  d.innerHTML='<div class="pm-card" tabindex="-1"><button class="pm-x" type="button" aria-label="Cerrar">×</button>'+
+   '<div class="pm-txt"><img class="pm-logo" src="assets/logo-header.webp" alt="Cultura Tech Store"><span class="pm-eye">'+esc(pr.eyebrow||"Promo exclusiva")+'</span>'+
+   '<h2 id="pm-h">'+esc(pr.headline||"")+'</h2><p class="pm-big">'+esc(pr.big||"").replace(/^(\S+%\s*OFF)/,"<em>$1</em>")+'</p><p class="pm-copy">'+esc(pr.copy||pr.text)+'</p>'+
+   '<a class="pm-cta" href="'+esc(pr.link||"catalogo.html")+'">'+esc(pr.linkText||"Ver más")+'</a><button class="pm-skip" type="button">Seguir mirando</button></div>'+
+   '<div class="pm-art" aria-hidden="true"><span class="pm-glow"></span><img class="pa1" src="'+I+'airpods-pro-3.webp" alt=""><img class="pa2" src="'+I+'apple-20w.webp" alt=""><img class="pa3" src="'+I+'cable-usbc.webp" alt=""><img class="pa4" src="'+I+'airtag-4.webp" alt=""><span class="pm-tag">-15%</span></div></div>';
+  function close(){d.classList.remove("show");document.removeEventListener("keydown",esc_);try{localStorage.setItem(k,String(Date.now()))}catch(e){}setTimeout(function(){d.remove()},350)}
+  function esc_(e){if(e.key==="Escape")close()}
+  d.addEventListener("click",function(e){if(e.target===d)close()});$(".pm-x",d).onclick=close;$(".pm-skip",d).onclick=close;$(".pm-cta",d).addEventListener("click",function(){try{localStorage.setItem(k,String(Date.now()))}catch(e){}});
+  setTimeout(function(){if(document.querySelector("#modal.open,.modal.open"))return;document.body.appendChild(d);requestAnimationFrame(function(){d.classList.add("show")});document.addEventListener("keydown",esc_);$(".pm-card",d).focus({preventScroll:true})},1000);
  })();
  (window.loadCatalog?window.loadCatalog():Promise.resolve(window.PRODUCTS||[])).then(function(list){
   if(window.applyPhotos)window.applyPhotos(list);
