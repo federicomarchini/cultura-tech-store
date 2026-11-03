@@ -311,3 +311,41 @@ body.menu-open{overflow:hidden}
 .mgift{display:flex;gap:8px;align-items:flex-start;color:#e8ebf0}.mgift .gic{flex:none;width:18px;height:18px;color:var(--c1);margin-top:2px}
 @media(max-width:760px){.upgift{padding:14px;gap:12px;align-items:flex-start;margin-top:18px}.ug-ic{width:40px;height:40px;border-radius:12px}.ug-ic .gic{width:20px;height:20px}.ug-tx p{font-size:.86rem}.ug-chips li{font-size:.66rem;padding:4px 10px}}
 .uphead .upgift{margin-top:20px}
+
+/* ===== CYBER MONDAY (solo con html.cyber) ===== */
+.cyber{--mg:#ff2bd6;--mg2:#e91ee8}
+.cy-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 14px;background:linear-gradient(90deg,#2a0630,#7a0f86 30%,#e91ee8 50%,#7a0f86 70%,#2a0630);color:#fff;font:600 12px/1.3 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;text-decoration:none;position:relative;z-index:60}
+.cy-bar b{font-weight:600;opacity:.9;white-space:nowrap}
+.cy-dot{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff;animation:cyp 1.4s infinite;flex:none}
+@keyframes cyp{50%{opacity:.3}}
+.cy-band{position:relative;overflow:hidden;padding:70px 0;background:radial-gradient(ellipse at 20% 50%,rgba(233,30,232,.22),transparent 60%),radial-gradient(ellipse at 85% 50%,rgba(47,123,255,.18),transparent 60%),#07070b;border-top:1px solid rgba(233,30,232,.35);border-bottom:1px solid rgba(233,30,232,.35)}
+.cy-tape{position:absolute;left:-10%;width:120%;background:var(--mg2);color:#fff;font:600 13px/1 Montserrat,sans-serif;letter-spacing:.3em;padding:7px 0;white-space:nowrap;overflow:hidden;box-shadow:0 0 24px rgba(233,30,232,.5);pointer-events:none}
+.cy-t1{top:14px;transform:rotate(-2deg)}.cy-t2{bottom:14px;transform:rotate(1.5deg);opacity:.85}
+.cy-bin{position:relative;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px}
+.cy-eb{font:600 13px/1 Montserrat,sans-serif;letter-spacing:.35em;color:var(--mg);margin-bottom:10px}
+.cy-big{font:600 clamp(34px,6vw,64px)/1 Montserrat,sans-serif;letter-spacing:-.01em;color:var(--mg);text-shadow:0 0 30px rgba(233,30,232,.45)}
+.cy-big .cw{color:#fff;text-shadow:none}
+.cy-sub{margin-top:12px;color:#e9edf3;font-size:15px}
+.cy-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;background:linear-gradient(90deg,#e91ee8,#8a5cff);color:#fff;font:600 14px Montserrat,sans-serif;letter-spacing:.06em;text-decoration:none;box-shadow:0 8px 30px rgba(233,30,232,.35);transition:transform .2s}
+.cy-btn:hover{transform:translateY(-2px)}.cy-btn svg{width:20px;height:20px}
+.cy-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(3,3,6,.78);backdrop-filter:blur(6px);opacity:0;transition:opacity .3s}
+.cy-modal.on{opacity:1}
+.cy-card{position:relative;overflow:hidden;width:100%;max-width:460px;max-height:calc(100vh - 36px);overflow-y:auto;padding:58px 30px 34px;text-align:center;border-radius:22px;border:1px solid rgba(233,30,232,.5);background:radial-gradient(circle at 50% 0,rgba(233,30,232,.28),transparent 60%),repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 2px,transparent 2px 6px),#0b0a10;box-shadow:0 0 60px rgba(233,30,232,.3);transform:scale(.94);transition:transform .3s}
+.cy-modal.on .cy-card{transform:none}
+.cy-rib{position:absolute;width:230px;background:var(--mg2);color:#fff;font:600 11px/1 Montserrat,sans-serif;letter-spacing:.25em;text-align:center;padding:8px 0;box-shadow:0 0 18px rgba(233,30,232,.6);pointer-events:none}
+.cy-r1{top:26px;left:-62px;transform:rotate(-35deg)}.cy-r2{bottom:26px;right:-62px;transform:rotate(-35deg)}
+.cy-x{position:absolute;top:10px;right:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.5);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.cy-logo{height:42px;width:auto;margin:0 auto 18px;display:block}
+.cy-big2{font-size:clamp(46px,13vw,68px)}
+.cy-big2 small{display:block;font-size:.34em;letter-spacing:.3em;color:#fff;margin-bottom:6px;text-shadow:none}
+.cy-sub2{margin-top:12px;font:600 18px Montserrat,sans-serif;color:#fff;letter-spacing:.04em}
+.cy-txt{color:#8a94a6;margin:8px 0 24px;font-size:14px}
+.cy-card .cy-btn{width:100%}
+.cy-link{display:inline-block;margin-top:16px;margin-bottom:14px;color:#e9edf3;font-size:13px;letter-spacing:.1em;text-decoration:underline;text-underline-offset:4px}
+.cyber .hero .btn:not(.ghost){box-shadow:0 0 26px rgba(233,30,232,.35)}
+@media(max-width:600px){.cy-bar{font-size:10.5px;letter-spacing:.06em;gap:6px}.cy-bar b{display:none}.cy-band{padding:58px 0}.cy-bin{flex-direction:column;align-items:stretch;text-align:center}.cy-btn{width:100%}.cy-card{padding:54px 22px 30px}}
+.cy-bar{position:fixed;top:0;left:0;right:0;z-index:60}
+.cyber header{top:var(--cyb,34px)}
+.cyber body{padding-top:var(--cyb,34px)}
+.cy-until{display:inline-block;margin-top:12px;padding:6px 14px;border:1px solid rgba(233,30,232,.6);border-radius:999px;color:#fff;font:600 12px/1.3 Montserrat,sans-serif;letter-spacing:.06em;background:rgba(233,30,232,.12)}
+.cy-u2{margin:-8px 0 20px}
