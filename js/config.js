@@ -32,7 +32,7 @@ window.SITE_CONFIG = {
   promo: { enabled: false, id: "promo-accesorios-15", days: 7, eyebrow: "PROMO EXCLUSIVA", headline: "Estrenás teléfono,", big: "15% OFF en accesorios", text: "15% de descuento en accesorios con la compra de tu nuevo teléfono", copy: "Con la compra de tu nuevo teléfono llevate AirPods, cargadores, cables y más con 15% de descuento.", link: "catalogo.html?cat=Accesorios", linkText: "Ver accesorios" },
 
   // ---- CYBER MONDAY ---- (enabled:false = vuelve el look normal; al cambiar "id" el pop up se vuelve a mostrar)
-  cyber: { enabled: true, endDate: "2026-11-04", until: "Válido hasta el miércoles 4 de noviembre inclusive", untilShort: "Hasta el miércoles 4/11 inclusive", id: "cyber-monday-2026", popupHours: 24, eyebrow: "CYBER MONDAY", big: "HASTA USD 25 OFF", sub: "En todos los teléfonos", text: "Consultá por WhatsApp para conocer el detalle", waText: "¡Hola Cultura Tech! Quiero conocer los descuentos de Cyber Monday", bar: "CYBER MONDAY · hasta USD 25 OFF en todos los teléfonos" },
+  cyber: { enabled: false, endDate: "2026-11-04", until: "Válido hasta el miércoles 4 de noviembre inclusive", untilShort: "Hasta el miércoles 4/11 inclusive", id: "cyber-monday-2026", popupHours: 24, eyebrow: "CYBER MONDAY", big: "HASTA USD 25 OFF", sub: "En todos los teléfonos", text: "Consultá por WhatsApp para conocer el detalle", waText: "¡Hola Cultura Tech! Quiero conocer los descuentos de Cyber Monday", bar: "CYBER MONDAY · hasta USD 25 OFF en todos los teléfonos" },
 
   // ---- Cintas de descuento en productos ----
   // Cada regla: palabras que deben estar TODAS en el nombre del modelo (sin importar mayúsculas, acentos, espacios ni signos).
